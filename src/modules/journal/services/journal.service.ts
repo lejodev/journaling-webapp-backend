@@ -1,15 +1,23 @@
 import { Injectable } from '@nestjs/common';
 import { CreateJournalDto } from '../dto/create-journal.dto';
 import { UpdateJournalDto } from '../dto/update-journal.dto';
+import { WrapperService } from 'src/core/services/wrapper/wrapper.service';
+import { Journal } from '../entities/journal.entity';
 
 @Injectable()
 export class JournalService {
+
+  constructor(private wrapperService: WrapperService) {
+  
+
+  }
+
   create(createJournalDto: CreateJournalDto) {
     return 'This action adds a new journal';
   }
 
   findAll() {
-    return `This action returns all journal`;
+    return this.wrapperService.findAll(Journal)
   }
 
   findOne(id: number) {

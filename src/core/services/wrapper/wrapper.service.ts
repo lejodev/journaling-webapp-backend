@@ -48,4 +48,8 @@ export class WrapperService {
         return from(this.entityManager.update(entityTarget, criteria, data))
     }
 
+    delete<T>(entityTarget: EntityTarget<T>, id: string) {
+        return from(this.entityManager.delete(entityTarget, id))
+    }
+
 }

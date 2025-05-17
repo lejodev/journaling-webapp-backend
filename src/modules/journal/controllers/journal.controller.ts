@@ -14,7 +14,7 @@ export class JournalController {
 
   @Get()
   findAll() {
-    return this.journalService.findAll();
+    return this.journalService.findAll()
   }
 
   @Get(':id')

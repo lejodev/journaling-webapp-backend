@@ -2,9 +2,9 @@ import { User } from "src/modules/user/entities/user.entity";
 import { Column, Entity, Index, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import { IsNotEmpty, MinLength } from 'class-validator';
 
-@Entity('tb_journal')
+@Entity('tb_journal_entries')
 export class Journal {
-    @PrimaryGeneratedColumn({ name: 'journal_id' })
+    @PrimaryGeneratedColumn({ name: 'id' })
     id: number;
 
     @Index()
@@ -17,12 +17,9 @@ export class Journal {
     @MinLength(3)
     title: string;
 
-    @Column({ name: 'content', type: 'text', nullable: false })
+    @Column({ name: 'journal_text', type: 'text', nullable: false })
     @IsNotEmpty()
     content: string;
-
-    @Column({ name: 'is_public', default: false })
-    isPublic: boolean;
 
     @Column({ name: 'created_at', type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
     createdAt: Date;
