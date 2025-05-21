@@ -3,12 +3,13 @@ import { CreateJournalDto } from '../dto/create-journal.dto';
 import { UpdateJournalDto } from '../dto/update-journal.dto';
 import { WrapperService } from 'src/core/services/wrapper/wrapper.service';
 import { Journal } from '../entities/journal.entity';
+import { User } from 'src/modules/user/entities/user.entity';
 
 @Injectable()
 export class JournalService {
 
   constructor(private wrapperService: WrapperService) {
-  
+
 
   }
 
@@ -18,6 +19,17 @@ export class JournalService {
 
   findAll() {
     return this.wrapperService.findAll(Journal)
+  }
+
+  myEntries(userId: number) {
+    return this.wrapperService.GET<Journal>(Journal, {
+      where: {
+        user: {
+          id: userId
+        }
+      },
+      relations: ['user']
+    })
   }
 
   findOne(id: number) {

@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectEntityManager } from '@nestjs/typeorm';
 import { from, Observable } from 'rxjs';
-import { EntityManager, EntityTarget, FindOptionsOrder, FindOptionsWhere, UpdateResult } from 'typeorm';
+import { EntityManager, EntityTarget, FindOptionsOrder, FindOptionsWhere, UpdateResult, FindManyOptions } from 'typeorm';
 import { QueryDeepPartialEntity } from 'typeorm/query-builder/QueryPartialEntity';
 
 @Injectable()
@@ -21,7 +21,7 @@ export class WrapperService {
         }
 
     ): Observable<T[]> {
-        const findOptions = {
+        const findOptions:  FindManyOptions<T> =   {
             ...options
         }
         return from(this.entityManager.find(entity, findOptions))
@@ -32,7 +32,7 @@ export class WrapperService {
         return from(this.entityManager.find(entityClass))
     }
 
-    findOne<T>(entityTarget: EntityTarget<T>, where: FindOptionsWhere<T>): Observable<T | null> {
+    findOne<T>(entityTarget: EntityTarget<T>, where: FindOptionsWhere<T> | FindOptionsWhere<T>[]): Observable<T | null> {
         return from(this.entityManager.findOneBy(entityTarget, where))
     }
 

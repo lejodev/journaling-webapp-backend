@@ -8,9 +8,9 @@ export class Journal {
     id: number;
 
     @Index()
-    @ManyToOne(() => User, (user) => user.journals, { onDelete: 'CASCADE' })
+    @ManyToOne(() => User, (user) => user.journals, { onDelete: 'CASCADE', eager: true })
     @JoinColumn({ name: 'user_id' })
-    userId: User;
+    user: User;
 
     @Column({ name: 'title', nullable: false })
     @IsNotEmpty()

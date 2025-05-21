@@ -7,6 +7,7 @@ import { WrapperService } from './core/services/wrapper/wrapper.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Journal } from './modules/journal/entities/journal.entity';
 import { User } from './modules/user/entities/user.entity';
+import { AuthModule } from './modules/auth/auth.module';
 
 @Module({
   imports: [
@@ -23,7 +24,8 @@ import { User } from './modules/user/entities/user.entity';
       },
     ),
     UserModule,
-    JournalModule],
+    JournalModule,
+    AuthModule],
   controllers: [AppController],
   providers: [AppService, WrapperService],
 })
