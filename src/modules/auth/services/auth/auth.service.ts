@@ -64,7 +64,7 @@ export class AuthService {
             return this.userService.create(user);
         } catch (error) {
             console.log("ERRORasasassas", error);
-            return{message: "carechimba"}
+            return{message: "Error while signup"}
             
         }
     }
