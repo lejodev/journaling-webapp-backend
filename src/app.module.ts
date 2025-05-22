@@ -8,10 +8,12 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Journal } from './modules/journal/entities/journal.entity';
 import { User } from './modules/user/entities/user.entity';
 import { AuthModule } from './modules/auth/auth.module';
+import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
+import { APP_GUARD } from '@nestjs/core';
 
 @Module({
   imports: [
-    TypeOrmModule.forRoot(
+    TypeOrmModule.forRoot( // Temporarily hardcodd data, this will be in ENV
       {
         type: 'postgres',
         host: "localhost",
@@ -23,10 +25,25 @@ import { AuthModule } from './modules/auth/auth.module';
         // synchronize: true,
       },
     ),
+    ThrottlerModule.forRoot({
+      throttlers: [
+        {
+          ttl: 60000,
+          limit: 10
+        }
+      ]
+    }),
     UserModule,
     JournalModule,
     AuthModule],
   controllers: [AppController],
-  providers: [AppService, WrapperService],
+  providers: [
+    AppService,
+    WrapperService,
+    {
+      provide: APP_GUARD,
+      useClass: ThrottlerGuard
+    }
+  ],
 })
 export class AppModule { }
