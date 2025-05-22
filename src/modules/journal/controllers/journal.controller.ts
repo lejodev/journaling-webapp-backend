@@ -14,12 +14,12 @@ export class JournalController {
 
   @Get()
   findAll() {
-    return this.journalService.findAll();
+    return this.journalService.findAll()
   }
 
-  @Get(':id')
+  @Get('my_journals/:id')
   findOne(@Param('id') id: string) {
-    return this.journalService.findOne(+id);
+    return this.journalService.myEntries(+id);
   }
 
   @Patch(':id')
