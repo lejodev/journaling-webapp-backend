@@ -6,5 +6,6 @@ import { WrapperService } from 'src/core/services/wrapper/wrapper.service';
 @Module({
   controllers: [UserController],
   providers: [UserService, WrapperService],
+  exports: [UserService],
 })
 export class UserModule {}

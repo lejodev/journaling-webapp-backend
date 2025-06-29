@@ -7,7 +7,7 @@ async function bootstrap() {
   app.use(helmet())
 
   app.enableCors({
-    origin: 'http://localhost:4200', // Adjust this based on your needs
+    origin: 'http://localhost:4200', 
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true
   });

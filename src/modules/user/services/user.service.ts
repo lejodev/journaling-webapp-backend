@@ -12,11 +12,9 @@ export class UserService {
 
   async create(user: User) {
     try {
-      
       return this.wrapperService.create(User, user)
     } catch (error) {
       console.log("ERROR on userservice", error);
-      
     }
   }
 
@@ -27,7 +25,7 @@ export class UserService {
   findOne(body: any) {
     return this.wrapperService.findOne(User, {
       username: body.username || body.email
-    });
+    })
   }
 
   update(id: number, updateUserDto: UpdateUserDto) {

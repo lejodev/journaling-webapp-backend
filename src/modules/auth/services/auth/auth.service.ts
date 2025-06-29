@@ -5,10 +5,14 @@ import * as bcrypt from 'bcrypt';
 import { SignInDto } from '../../dto/signin.dto';
 import { firstValueFrom } from 'rxjs';
 import { WrapperService } from 'src/core/services/wrapper/wrapper.service';
+import { JwtHelper } from '../jwt/jwt.service';
 
 @Injectable()
 export class AuthService {
-    constructor(private userService: UserService, private wrapperService: WrapperService) { }
+    constructor(
+        private userService: UserService,
+        private wrapperService: WrapperService,
+        private jwtHelper: JwtHelper) { }
 
     async signIn(signInDto: SignInDto) {
         try {
@@ -42,10 +46,17 @@ export class AuthService {
 
             delete user.password;
 
+            const payload = { user }
+
+            const token = this.jwtHelper.sign(payload)
+
+            console.log("TOKEN", token);
+
+
             return {
-                user,
-                message: 'Login successful'
-            };
+                message: "success",
+                token: token
+            }
 
         } catch (error) {
             if (error instanceof UnauthorizedException) {
@@ -64,8 +75,8 @@ export class AuthService {
             return this.userService.create(user);
         } catch (error) {
             console.log("ERRORasasassas", error);
-            return{message: "Error while signup"}
-            
+            return { message: "Error while signup" }
+
         }
     }
 }
