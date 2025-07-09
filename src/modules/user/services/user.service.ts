@@ -7,14 +7,13 @@ import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UserService {
-
-  constructor(private wrapperService: WrapperService) { }
+  constructor(private wrapperService: WrapperService) {}
 
   async create(user: User) {
     try {
-      return this.wrapperService.create(User, user)
+      return this.wrapperService.create(User, user);
     } catch (error) {
-      console.log("ERROR on userservice", error);
+      console.log('ERROR on userservice', error);
     }
   }
 
@@ -24,8 +23,8 @@ export class UserService {
 
   findOne(body: any) {
     return this.wrapperService.findOne(User, {
-      username: body.username || body.email
-    })
+      username: body.username || body.email,
+    });
   }
 
   update(id: number, updateUserDto: UpdateUserDto) {

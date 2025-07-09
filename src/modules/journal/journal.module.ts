@@ -5,8 +5,6 @@ import { WrapperService } from 'src/core/services/wrapper/wrapper.service';
 
 @Module({
   controllers: [JournalController],
-  providers: [JournalService,
-    WrapperService
-  ],
+  providers: [JournalService, WrapperService],
 })
 export class JournalModule {}

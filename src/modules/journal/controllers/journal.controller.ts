@@ -1,4 +1,12 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { JournalService } from '../services/journal.service';
 import { CreateJournalDto } from '../dto/create-journal.dto';
 import { UpdateJournalDto } from '../dto/update-journal.dto';
@@ -9,12 +17,14 @@ export class JournalController {
 
   @Post()
   create(@Body() createJournalDto: CreateJournalDto) {
+    console.log('CREATE');
+
     return this.journalService.create(createJournalDto);
   }
 
   @Get()
   findAll() {
-    return this.journalService.findAll()
+    return this.journalService.findAll();
   }
 
   @Get('my_journals/:id')

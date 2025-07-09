@@ -6,20 +6,20 @@ import { SignInDto } from '../dto/signin.dto';
 
 @Controller('auth')
 export class AuthController {
+  constructor(
+    private userService: UserService,
+    private authservice: AuthService,
+  ) {}
 
-    constructor(private userService: UserService, private authservice: AuthService){}
+  @Post('/signup')
+  signUp(@Body() user: User) {
+    return this.authservice.signUp(user);
+  }
 
-    @Post('/signup')
-    signUp(@Body() user: User) {
-        return this.authservice.signUp(user)
-    }
+  @Post('/signin')
+  signIn(@Body() signInDto: SignInDto) {
+    console.log(signInDto);
 
-    @Post('/signin')
-    signIn(@Body() signInDto: SignInDto) {
-        console.log(signInDto);
-        
-        return this.authservice.signIn(signInDto)
-    }
-
-
+    return this.authservice.signIn(signInDto);
+  }
 }

@@ -3,20 +3,17 @@ import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class JwtHelper {
+  constructor(private jwtService: JwtService) {}
 
-    constructor(
-        private jwtService: JwtService
-    ) { }
-
-    sign(payload: any) {
-        try {
-            const token = this.jwtService.sign(payload, { secret: "temporarySecret" })
-            console.log("JWT Token: ", token);
-            return token
-        } catch (error) {
-            throw new Error("Token error")
-        }
+  sign(payload: any) {
+    try {
+      const token = this.jwtService.sign(payload, {
+        secret: 'temporarySecret',
+      });
+      console.log('JWT Token: ', token);
+      return token;
+    } catch (error) {
+      throw new Error('Token error');
     }
-
-
+  }
 }

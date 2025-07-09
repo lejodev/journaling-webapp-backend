@@ -8,20 +8,14 @@ import { UserModule } from '../user/user.module';
 
 @Module({
   controllers: [AuthController],
-  providers: [
-    AuthService,
-    JwtHelper,
-    WrapperService
-  ],
+  providers: [AuthService, JwtHelper, WrapperService],
   imports: [
     JwtModule.register({
       secret: 'temporarySecret',
       signOptions: { expiresIn: '1h' },
     }),
-    UserModule
+    UserModule,
   ],
-  exports: [
-    JwtHelper
-  ]
+  exports: [JwtHelper],
 })
-export class AuthModule { }
+export class AuthModule {}

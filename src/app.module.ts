@@ -13,14 +13,15 @@ import { APP_GUARD } from '@nestjs/core';
 
 @Module({
   imports: [
-    TypeOrmModule.forRoot( // Temporarily hardcodd data, this will be in ENV
+    TypeOrmModule.forRoot(
+      // Temporarily hardcodd data, this will be in ENV
       {
         type: 'postgres',
-        host: "localhost",
+        host: 'localhost',
         port: 5432,
-        username: "postgres",
-        password: "root",
-        database: "Journal-public",
+        username: 'postgres',
+        password: '0000',
+        database: 'journalingdb',
         entities: [Journal, User],
         // synchronize: true,
       },
@@ -29,21 +30,22 @@ import { APP_GUARD } from '@nestjs/core';
       throttlers: [
         {
           ttl: 60000,
-          limit: 10
-        }
-      ]
+          limit: 10,
+        },
+      ],
     }),
     UserModule,
     JournalModule,
-    AuthModule],
+    AuthModule,
+  ],
   controllers: [AppController],
   providers: [
     AppService,
     WrapperService,
     {
       provide: APP_GUARD,
-      useClass: ThrottlerGuard
-    }
+      useClass: ThrottlerGuard,
+    },
   ],
 })
-export class AppModule { }
+export class AppModule {}
