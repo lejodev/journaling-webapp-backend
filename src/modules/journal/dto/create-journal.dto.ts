@@ -1,4 +1,6 @@
-import { IsNotEmpty, IsString, MinLength, IsNumber } from 'class-validator';
+import { IsNotEmpty, IsString, MinLength,
+  //  IsNumber
+   } from 'class-validator';
 
 export class CreateJournalDto {
   @IsString()
@@ -11,7 +13,7 @@ export class CreateJournalDto {
   @MinLength(10, { message: 'Content must be at least 10 characters long' })
   content: string;
 
-  @IsNumber()
-  @IsNotEmpty()
-  userId: number;
+  // @IsNumber()
+  // @IsNotEmpty()
+  // userId: number;
 }

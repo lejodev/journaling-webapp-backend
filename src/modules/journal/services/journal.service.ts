@@ -18,15 +18,15 @@ export class JournalService {
 
   create(createJournalDto: CreateJournalDto) {
     try {
-      const { title, content, userId } = createJournalDto;
-      if (!content || !title || !userId) {
+      const { title, content } = createJournalDto;
+      if (!content || !title) {
         console.log('In error');
         throw new HttpException('Title, content and userId are required', 400);
       }
       const convertJournal = {
         title: title.trim(),
         content: content.trim(),
-        user: { id: userId },
+        // user: { id: userId },
       };
       return this.wrapperService.create(Journal, convertJournal);
     } catch (error) {
@@ -42,7 +42,6 @@ export class JournalService {
   }
 
   myEntries(userId: number) {
-    console.log('re');
     return this.wrapperService.GET<Journal>(Journal, {
       where: {
         user: {

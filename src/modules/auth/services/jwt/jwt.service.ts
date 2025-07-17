@@ -3,7 +3,7 @@ import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class JwtHelper {
-  constructor(private jwtService: JwtService) {}
+  constructor(private readonly jwtService: JwtService) {}
 
   sign(payload: any) {
     try {
@@ -13,6 +13,7 @@ export class JwtHelper {
       console.log('JWT Token: ', token);
       return token;
     } catch (error) {
+      console.log(error);
       throw new Error('Token error');
     }
   }
