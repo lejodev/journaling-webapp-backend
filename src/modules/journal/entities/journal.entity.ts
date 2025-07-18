@@ -1,29 +1,41 @@
-import { User } from "src/modules/user/entities/user.entity";
-import { Column, CreateDateColumn, Entity, Index, JoinColumn, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { User } from 'src/modules/user/entities/user.entity';
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  Index,
+  JoinColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from 'typeorm';
 import { IsNotEmpty, MinLength } from 'class-validator';
 
 @Entity('tb_journal_entries')
 export class Journal {
-    @PrimaryGeneratedColumn({ name: 'id' })
-    id: number;
+  @PrimaryGeneratedColumn({ name: 'id' })
+  id: number;
 
-    @Index()
-    @ManyToOne(() => User, (user) => user.journals, { onDelete: 'CASCADE', eager: true })
-    @JoinColumn({ name: 'user_id' })
-    user: User;
+  @Index()
+  @ManyToOne(() => User, (user) => user.journals, {
+    onDelete: 'CASCADE',
+    eager: true,
+  })
+  @JoinColumn({ name: 'user_id' })
+  user: User;
 
-    @Column({ name: 'title', nullable: false })
-    @IsNotEmpty()
-    @MinLength(3)
-    title: string;
+  @Column({ name: 'title', nullable: false })
+  @IsNotEmpty()
+  @MinLength(3)
+  title: string;
 
-    @Column({ name: 'journal_text', type: 'text', nullable: false })
-    @IsNotEmpty()
-    content: string;
+  @Column({ name: 'journal_text', type: 'text', nullable: false })
+  @IsNotEmpty()
+  content: string;
 
-    @CreateDateColumn({ name: 'created_at' })
-    createdAt: Date;
+  @CreateDateColumn({ name: 'created_at' })
+  createdAt: Date;
 
-    @UpdateDateColumn({ name: 'updated_at' })
-    updatedAt: Date;
+  @UpdateDateColumn({ name: 'updated_at' })
+  updatedAt: Date;
 }
