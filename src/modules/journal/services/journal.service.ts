@@ -11,24 +11,35 @@ import { WrapperService } from 'src/core/services/wrapper/wrapper.service';
 import { Journal } from '../entities/journal.entity';
 // import { User } from 'src/modules/user/entities/user.entity';
 import { firstValueFrom } from 'rxjs';
+import { User } from 'src/modules/user/entities/user.entity';
 
 @Injectable()
 export class JournalService {
-  constructor(private wrapperService: WrapperService) {}
+  constructor(private wrapperService: WrapperService) { }
 
-  create(createJournalDto: CreateJournalDto) {
+  async create(createJournalDto: CreateJournalDto) {
     try {
-      const { title, content } = createJournalDto;
-      if (!content || !title) {
+      const { title, content, user_id } = createJournalDto;
+      if (!content || !title || !user_id) {
         console.log('In error');
         throw new HttpException('Title, content and userId are required', 400);
       }
-      const convertJournal = {
+      const convertJournal: Partial<Journal> = {
         title: title.trim(),
         content: content.trim(),
-        // user: { id: userId },
+        user: { id: user_id } as User,
       };
-      return this.wrapperService.create(Journal, convertJournal);
+      try {
+        const created = await firstValueFrom(this.wrapperService.create(Journal, convertJournal));
+        console.log(created);
+        return {
+          message: 'Journal created successfully',
+          data: created,
+        }
+      } catch (error) {
+        console.log('Error creating journal', error);
+        throw new InternalServerErrorException('Failed to create journal');
+      }
     } catch (error) {
       console.log(error);
       throw new HttpException(error.message, 500);

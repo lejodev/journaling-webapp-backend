@@ -18,6 +18,8 @@ export class UserController {
 
   @Post()
   create(@Body() body: User) {
+    console.log("CARECHIMBA");
+    
     return this.userService.create(body);
   }
 

@@ -21,7 +21,7 @@ import { APP_GUARD } from '@nestjs/core';
         port: 5432,
         username: 'postgres',
         password: '0000',
-        database: 'journalingdb',
+        database: 'Journal-public',
         entities: [Journal, User],
         // synchronize: true,
       },

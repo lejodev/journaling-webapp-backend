@@ -33,9 +33,9 @@ export class Journal {
   @IsNotEmpty()
   content: string;
 
-  @CreateDateColumn({ name: 'created_at' })
+  @CreateDateColumn({ name: 'createdat' })
   createdAt: Date;
 
-  @UpdateDateColumn({ name: 'updated_at' })
+  @UpdateDateColumn({ name: 'updatedat' })
   updatedAt: Date;
 }

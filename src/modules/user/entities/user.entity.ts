@@ -24,9 +24,9 @@ export class User {
   @MinLength(3)
   username: string;
 
-  @Column({ name: 'nname', nullable: false })
+  @Column({ name: 'fullname', nullable: false })
   @IsNotEmpty()
-  name: string;
+  fullname: string;
 
   @Index()
   @Column({ name: 'email', unique: true, nullable: false })
@@ -34,13 +34,13 @@ export class User {
   @IsNotEmpty()
   email: string;
 
-  @Column({ name: 'password', nullable: false })
+  @Column({ name: 'passwordhash', nullable: false })
   @MinLength(6)
-  password: string;
+  passwordhash: string;
 
-  @CreateDateColumn({ name: 'created_at' })
+  @CreateDateColumn({ name: 'createdat' })
   createdAt: Date;
 
-  @UpdateDateColumn({ name: 'updated_at' })
+  @UpdateDateColumn({ name: 'updatedat' })
   updatedAt: Date;
 }
