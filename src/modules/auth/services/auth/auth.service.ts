@@ -51,7 +51,7 @@ export class AuthService {
 
       delete user.passwordhash;
 
-      const payload = { user };
+      const payload = { ...user };
 
       const token = this.jwtHelper.sign(payload);
 

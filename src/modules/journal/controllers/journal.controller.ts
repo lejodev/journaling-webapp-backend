@@ -15,10 +15,10 @@ import { UpdateJournalDto } from '../dto/update-journal.dto';
 import { AuthGuard } from 'src/modules/auth/guards/auth/auth.guard';
 
 @Controller('journal')
+@UseGuards(AuthGuard)
 export class JournalController {
   constructor(private readonly journalService: JournalService) { }
 
-  // @UseGuards(AuthGuard)
   @Post()
   create(
     @Body() createJournalDto: CreateJournalDto,
@@ -30,14 +30,25 @@ export class JournalController {
   }
 
   @Get()
-  findAll() {
+  findAll(@Request() req: any) {
+    console.log("req*********", req.user);
+
     return this.journalService.findAll();
   }
 
   // @UseGuards(AuthGuard)
-  @Get('my_journals/:id')
+  @Get('my_journals')
+  find(@Request() req: any) {
+    console.log(req.id);
+    
+    console.log('My journals for ', req.id);
+
+    return this.journalService.myEntries(req.id);
+  }
+
+  @Get('my_journal/:id')
   findOne(@Param('id') id: string) {
-    return this.journalService.myEntries(+id);
+    return this.journalService.findOne(+id);
   }
 
   @Patch(':id')

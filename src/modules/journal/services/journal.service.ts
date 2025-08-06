@@ -53,6 +53,8 @@ export class JournalService {
   }
 
   myEntries(userId: number) {
+    console.log('USER ID****', userId);
+    
     return this.wrapperService.GET<Journal>(Journal, {
       where: {
         user: {
@@ -64,7 +66,7 @@ export class JournalService {
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} journal`;
+    return this.wrapperService.findOne(Journal, { id });
   }
 
   async update(id: number, updateJournalDto: UpdateJournalDto) {
