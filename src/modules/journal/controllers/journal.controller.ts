@@ -39,11 +39,21 @@ export class JournalController {
   // @UseGuards(AuthGuard)
   @Get('my_journals')
   find(@Request() req: any) {
-    console.log(req.id);
-    
-    console.log('My journals for ', req.id);
+    console.log(req.user.id);
 
-    return this.journalService.myEntries(req.id);
+    let userId = req.user.id;
+
+    console.log('My journals for ', userId);
+
+    if (!userId) {
+      return {
+        message: 'User ID is required',
+        status: 400,
+      };
+
+    }
+
+    return this.journalService.myEntries(req.user.id);
   }
 
   @Get('my_journal/:id')
