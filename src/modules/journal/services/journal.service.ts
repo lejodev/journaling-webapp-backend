@@ -45,7 +45,6 @@ export class JournalService {
       throw new HttpException(error.message, 500);
     }
 
-    // return 'This action adds a new journal';
   }
 
   findAll() {

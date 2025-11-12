@@ -10,22 +10,24 @@ import { User } from './modules/user/entities/user.entity';
 import { AuthModule } from './modules/auth/auth.module';
 import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
 import { APP_GUARD } from '@nestjs/core';
+import { ConfigModule, ConfigService } from '@nestjs/config'; // <-- 1. Import Config
 
 @Module({
   imports: [
-    TypeOrmModule.forRoot(
-      // Temporarily hardcodd data, this will be in ENV
-      {
+    ConfigModule.forRoot({
+      isGlobal: true,
+    }),
+
+    TypeOrmModule.forRootAsync({
+      imports: [ConfigModule],
+      useFactory: (configService: ConfigService) => ({
         type: 'postgres',
-        host: 'localhost',
-        port: 5432,
-        username: 'postgres',
-        password: '0000',
-        database: 'Journal-public',
+        url: configService.get<string>('DATABASE_URL'),
         entities: [Journal, User],
-        // synchronize: true,
-      },
-    ),
+      }),
+      inject: [ConfigService],
+    }),
+
     ThrottlerModule.forRoot({
       throttlers: [
         {
@@ -48,4 +50,4 @@ import { APP_GUARD } from '@nestjs/core';
     },
   ],
 })
-export class AppModule {}
+export class AppModule { }
